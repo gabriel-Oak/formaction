@@ -2,6 +2,7 @@
  * @component Form
  */
 import * as React from 'react'
+import { FormContext } from '../../shared/context';
 
 export type FormProps = {
   children: React.ReactNode;
@@ -12,10 +13,6 @@ const Form: React.FC = (props: FormProps) => {
   const { children, initialValues } = props;
   const [form, setForm] = React.useState(initialValues || {});
 
-  const FormContext = React.createContext({
-    form,
-    setForm,
-  });
 
   return (
     <form>
