@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 
-import ExampleComponent from 'formaction'
+import { Form, ExampleComponent } from 'formaction'
 
 export default class App extends Component {
-  render () {
+
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
-    )
+      <Form>
+        <ExampleComponent text='Forms with fun' />
+        <div>
+          sadsdasa
+        </div>
+        <div>
+          <ExampleComponent text='Forms with fun' />
+          <div>
+            <ExampleComponent text='Forms with fun' />
+          </div>
+        </div>
+      </Form>
+    );
   }
 }

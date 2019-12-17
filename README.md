@@ -1,6 +1,6 @@
 # Formaction
 
-> A library for react forms menaging
+> A library for react forms management
 
 [![NPM](https://img.shields.io/npm/v/formaction.svg)](https://www.npmjs.com/package/formaction) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
