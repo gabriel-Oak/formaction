@@ -2,20 +2,19 @@ import * as React from 'react';
 import { FormContext } from '../../shared/context';
 import FieldWapper from './FieldWrapper';
 
-interface InputEvent {
+export interface InputEvent {
   target: {
     value: string;
   };
+  type: string;
+  nativeEvent: any;
   preventDefault: Function;
 }
 
 export type FieldProps = {
   name: string;
   renderComponent: React.FC | any;
-  className?: string;
-  validators?: Function[];
-  disabled?: boolean;
-  readonly?: boolean;
+  validators?: Array<(value: any) => string | undefined>;
 }
 
 class Field extends React.PureComponent<FieldProps> {
@@ -32,34 +31,34 @@ class Field extends React.PureComponent<FieldProps> {
   onChange(value: any) {
     const { setForm, form } = this.context;
 
-    if (typeof value === 'number') {
-      value = String(value);
-    }
-
     setForm(this._formatForm(form, value));
   }
 
   handleNativeField(event: InputEvent) {
     const { setForm, form } = this.context;
-    const { target: { value } } = event;
+    const { target: { value }, nativeEvent: { data } } = event;
 
-    setForm(this._formatForm(form, value));
+    setForm(this._formatForm(form, value, data));
   }
 
-  _formatForm(form: any, value: string | any[] | any): any {
+  _formatForm(form: any, value: any, data?: string): any {
+    const { name } = this.props;
     const tempForm = JSON.parse(JSON.stringify(form));
 
-    if (value.length) {
-      tempForm[this.props.name] = value;
-    } else {
-      delete tempForm[this.props.name];
+    if (value) {
+
+      tempForm[name] = data
+        ? (tempForm[name] || '') + data
+        : value;
+      return tempForm;
     }
 
+    delete tempForm[name];
     return tempForm;
   }
 
   render(): React.ReactNode {
-    const { name, renderComponent } = this.props;
+    const { name, renderComponent, validators, children, ...rest } = this.props;
     const { form } = this.context;
 
     return (
@@ -67,12 +66,17 @@ class Field extends React.PureComponent<FieldProps> {
         renderComponent
           ?
           FieldWapper(renderComponent, {
-            name: name,
-            value: form[name] || '',
             onChange: this.onChange,
+            input: {
+              ...rest,
+              name,
+              value: form[name] || '',
+              onChange: this.handleNativeField
+            },
           })
           :
           <input
+            {...rest}
             name={name}
             value={form[name] || ''}
             onChange={this.handleNativeField}

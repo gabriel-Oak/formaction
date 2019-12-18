@@ -1,13 +1,23 @@
-import { useState } from "react";
-import { FormProps } from ".";
+import { useState, useEffect, ReactNode } from "react";
+
+export type FormProps = {
+  children: ReactNode;
+  initialValues?: any;
+  onSubmit: (values: any) => {};
+  onChange?: (values: any) => {};
+}
+
 
 const FormHooks = (props: FormProps) => {
-  const { initialValues } = props;
+  const { initialValues, ...rest } = props;
   const [form, setForm] = useState(initialValues || {});
+  const updateEffect = useEffect;
 
   return {
     form,
-    setForm
+    setForm,
+    updateEffect,
+    ...rest
   }
 };
 

@@ -1,15 +1,16 @@
 import * as React from 'react';
+import { InputEvent } from '.';
 
-interface FieldProps {
-  name: string;
+interface WrapperProps {
   onChange: Function;
-  value?: string;
-  className?: string;
-  disabled?: boolean;
-  readonly?: boolean;
+  input: {
+    onChange: (event: InputEvent) => void;
+    value?: string;
+    name: string;
+  }
 }
 
-const FieldWapper = (RenderField: any, props: FieldProps) => (
+const FieldWapper = (RenderField: any, props: WrapperProps) => (
   <RenderField {...props} />
 );
 

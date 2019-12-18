@@ -2,22 +2,37 @@
  * @component Form
  */
 import * as React from 'react'
-import FormHooks from './hooks';
+import FormHooks, { FormProps } from './hooks';
 import { FormContext } from '../../shared/context';
 
-export type FormProps = {
-  children: React.ReactNode;
-  initialValues?: any;
-}
 
 const Form: React.FC = (props: FormProps) => {
-  const { children } = props;
-  const {form, setForm} = FormHooks(props);
-  console.log(form);
+  const {
+    form,
+    setForm,
+    updateEffect,
+    children,
+    onSubmit,
+    onChange,
+    ...rest
+  } = FormHooks(props);
+
+
+  updateEffect(() => {
+    onChange && onChange(form);
+  }, [form]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit(form);
+  }
 
 
   return (
-    <form>
+    <form
+      {...rest}
+      onSubmit={handleSubmit}
+    >
       <FormContext.Provider value={{
         form,
         setForm
