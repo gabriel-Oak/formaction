@@ -11,11 +11,15 @@ export type FormProps = {
 const FormHooks = (props: FormProps) => {
   const { initialValues, ...rest } = props;
   const [form, setForm] = useState(initialValues || {});
+  const [fields, setFields] = useState({});
+
   const updateEffect = useEffect;
 
   return {
     form,
     setForm,
+    fields,
+    setFields,
     updateEffect,
     ...rest
   }

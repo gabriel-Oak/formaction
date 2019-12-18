@@ -11,6 +11,8 @@ const Form: React.FC = (props: FormProps) => {
     form,
     setForm,
     updateEffect,
+    fields,
+    setFields,
     children,
     onSubmit,
     onChange,
@@ -24,6 +26,22 @@ const Form: React.FC = (props: FormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const tempFields = JSON.parse(JSON.stringify(fields));
+
+    const valid = Object
+      .keys(fields)
+      .every(
+        key => {
+          tempFields[key].touched = true;
+          return !fields[key].errors;
+        }
+      );
+
+    if (!valid) {
+      setFields(tempFields);
+      return;
+    }
+
     onSubmit(form);
   }
 
