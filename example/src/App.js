@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 
-import { Form, ExampleComponent } from 'formaction'
+import { Form, Field } from 'formaction'
 
 export default class App extends Component {
 
   render() {
     return (
-      <Form>
-        <ExampleComponent text='Forms with fun' />
+      <Form initialValues={{'Forms with fun': 'hola'}}>
+        <Field name='Forms with fun' />
         <div>
           sadsdasa
         </div>
         <div>
-          <ExampleComponent text='Forms with fun' />
+          <Field name='fun' />
           <div>
-            <ExampleComponent text='Forms with fun' />
+            <Field name='Forms with fun' />
           </div>
         </div>
       </Form>
