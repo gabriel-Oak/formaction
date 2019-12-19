@@ -8,7 +8,7 @@ export const isNumber = (value: any) => (
     : 'Esse campo deve ser do tipo número'
 );
 
-export const required = (value: any) => (
+export const isRequired = (value?: any) => (
   value || typeof value === 'number'
     ? undefined
     : 'Esse campo é obrigatorio'
