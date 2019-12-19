@@ -28,38 +28,61 @@ class Field extends React.PureComponent<FieldProps> {
     this.handleNativeField = this.handleNativeField.bind(this);
   }
 
-  onChange(value: any) {
-    const { setForm, form } = this.context;
+  componentDidMount() {
+    const { fields, form } = this.context;
+    const { name, validators } = this.props;
+    const validation = validators || [];
 
-    setForm(this._formatForm(form, value));
+    fields[name] = {
+      touched: false,
+      errors: validation
+        .map(validate => validate(form[name]))
+        .filter(error => error)
+    }
+  }
+
+  onChange(value: any) {
+    const { setForm } = this.context;
+
+    setForm(this._formatForm(value));
   }
 
   handleNativeField(event: InputEvent) {
-    const { setForm, form } = this.context;
-    const { target: { value }, nativeEvent: { data } } = event;
+    const { setForm } = this.context;
+    const { target: { value } } = event;
 
-    setForm(this._formatForm(form, value, data));
+    setForm(this._formatForm(value));
   }
 
-  _formatForm(form: any, value: any, data?: string): any {
-    const { name } = this.props;
+  _formatForm(value: any): any {
+    const { fields, setFields, form } = this.context;
+    const { name, validators } = this.props;
+    const validation = validators || [];
+
     const tempForm = JSON.parse(JSON.stringify(form));
 
-    if (value) {
+    setFields({
+      ...fields,
+      [name]: {
+        touched: true,
+        errors: validation
+          .map(validate => validate(value))
+          .filter(error => error)
+      }
+    });
 
-      tempForm[name] = data
-        ? (tempForm[name] || '') + data
-        : value;
-      return tempForm;
+    if (value) {
+      tempForm[name] = value;
+    } else {
+      delete tempForm[name];
     }
 
-    delete tempForm[name];
     return tempForm;
   }
 
   render(): React.ReactNode {
     const { name, renderComponent, validators, children, ...rest } = this.props;
-    const { form } = this.context;
+    const { form, fields } = this.context;
 
     return (
       <> {
@@ -67,12 +90,13 @@ class Field extends React.PureComponent<FieldProps> {
           ?
           FieldWapper(renderComponent, {
             onChange: this.onChange,
+            meta: fields[name],
             input: {
               ...rest,
               name,
               value: form[name] || '',
               onChange: this.handleNativeField
-            },
+            }
           })
           :
           <input

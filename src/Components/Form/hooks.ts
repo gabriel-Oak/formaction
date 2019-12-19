@@ -13,14 +13,13 @@ const FormHooks = (props: FormProps) => {
   const [form, setForm] = useState(initialValues || {});
   const [fields, setFields] = useState({});
 
-  const updateEffect = useEffect;
 
   return {
     form,
     setForm,
     fields,
     setFields,
-    updateEffect,
+    useEffect,
     ...rest
   }
 };

@@ -6,12 +6,9 @@ import { isEmail } from './validators';
 const render = props => {
   const { input } = props;
 
-  return <select
+  return <input
     {...input}
-  >
-    <option value='1'>1</option>
-    <option value='2'>2</option>
-  </select>
+  />
 }
 
 const render2 = props => {
@@ -44,7 +41,7 @@ export default class App extends Component {
         <div>
           <Field name='fun' />
           <div>
-            <Field name={456} renderComponent={render} validators={[isEmail]}/>
+            <Field name={456} renderComponent={render} validators={[isEmail]} />
             <Field name={457} renderComponent={render2} />
           </div>
         </div>

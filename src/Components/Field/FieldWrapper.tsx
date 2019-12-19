@@ -3,6 +3,10 @@ import { InputEvent } from '.';
 
 interface WrapperProps {
   onChange: Function;
+  meta: {
+    touched: boolean,
+    errors: string[]
+  }
   input: {
     onChange: (event: InputEvent) => void;
     value?: string;

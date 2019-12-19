@@ -10,7 +10,7 @@ const Form: React.FC = (props: FormProps) => {
   const {
     form,
     setForm,
-    updateEffect,
+    useEffect,
     fields,
     setFields,
     children,
@@ -20,24 +20,28 @@ const Form: React.FC = (props: FormProps) => {
   } = FormHooks(props);
 
 
-  updateEffect(() => {
+  useEffect(() => {
     onChange && onChange(form);
   }, [form]);
+
+  useEffect(() => {
+    setFields(fields);
+  }, [fields]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const tempFields = JSON.parse(JSON.stringify(fields));
 
-    const valid = Object
-      .keys(fields)
-      .every(
+    const inValid = Object
+      .keys(tempFields)
+      .some(
         key => {
           tempFields[key].touched = true;
-          return !fields[key].errors;
+          return tempFields[key].errors.length;
         }
       );
 
-    if (!valid) {
+    if (inValid) {
       setFields(tempFields);
       return;
     }
@@ -53,7 +57,9 @@ const Form: React.FC = (props: FormProps) => {
     >
       <FormContext.Provider value={{
         form,
-        setForm
+        setForm,
+        fields,
+        setFields
       }}>
 
         {children}
