@@ -4,11 +4,18 @@ import { Form, Field } from 'formaction'
 import { isEmail } from './validators';
 
 const render = props => {
-  const { input } = props;
+  const { input, meta: { touched, errors } } = props;
 
-  return <input
-    {...input}
-  />
+  return (
+    <div>
+      <input
+        {...input}
+      />
+      <div>
+        {touched && errors[0]}
+      </div>
+    </div>
+  )
 }
 
 const render2 = props => {
@@ -25,8 +32,21 @@ const render2 = props => {
 }
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {}
+    }
+  }
+
   handleSubmit(values) {
     console.log(values);
+  }
+
+  handleChange(values) {
+    console.log(values);
+
+    this.setState({ form: values });
   }
 
   render() {
@@ -35,7 +55,6 @@ export default class App extends Component {
       <Form
         initialValues={{ 'Forms with fun': 'hola' }}
         onSubmit={values => this.handleSubmit(values)}
-        onChange={values => this.handleSubmit(values)}
       >
         <Field name='Forms with fun' />
         <div>

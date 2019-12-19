@@ -1,11 +1,11 @@
 import * as React from "react";
 
-const setForm: any = {};
+const updateForm: any = {};
 const setFields: any = {};
 
 export const FormContext = React.createContext({
   form: {},
-  setForm,
+  updateForm,
   fields: {},
   setFields,
 });

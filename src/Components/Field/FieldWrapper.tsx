@@ -9,6 +9,7 @@ interface WrapperProps {
   }
   input: {
     onChange: (event: InputEvent) => void;
+    onBlur: (event: InputEvent) => void;
     value?: string;
     name: string;
   }

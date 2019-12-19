@@ -25,49 +25,57 @@ class Field extends React.PureComponent<FieldProps> {
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.handleNativeField = this.handleNativeField.bind(this);
+    this.handleNativeChange = this.handleNativeChange.bind(this);
+    this.handleNativeBlur = this.handleNativeBlur.bind(this);
   }
 
   componentDidMount() {
     const { fields, form } = this.context;
-    const { name, validators } = this.props;
-    const validation = validators || [];
+    const { name } = this.props;
 
     fields[name] = {
       touched: false,
-      errors: validation
-        .map(validate => validate(form[name]))
-        .filter(error => error)
+      errors: this._getErrors(form[name])
     }
   }
 
   onChange(value: any) {
-    const { setForm } = this.context;
+    const { updateForm } = this.context;
 
-    setForm(this._formatForm(value));
+    updateForm(this._formatForm(value));
   }
 
-  handleNativeField(event: InputEvent) {
-    const { setForm } = this.context;
+  handleNativeChange(event: InputEvent) {
+    const { updateForm } = this.context;
     const { target: { value } } = event;
 
-    setForm(this._formatForm(value));
+    updateForm(this._formatForm(value));
+  }
+
+  handleNativeBlur(_event: InputEvent) {
+    const { fields, setFields } = this.context;
+    const { name } = this.props;
+
+    setFields({
+      ...fields,
+      [name]: {
+        ...fields[name],
+        touched: true
+      }
+    });
   }
 
   _formatForm(value: any): any {
     const { fields, setFields, form } = this.context;
-    const { name, validators } = this.props;
-    const validation = validators || [];
+    const { name } = this.props;
 
     const tempForm = JSON.parse(JSON.stringify(form));
 
     setFields({
       ...fields,
       [name]: {
-        touched: true,
-        errors: validation
-          .map(validate => validate(value))
-          .filter(error => error)
+        ...fields[name],
+        errors: this._getErrors(value)
       }
     });
 
@@ -80,6 +88,13 @@ class Field extends React.PureComponent<FieldProps> {
     return tempForm;
   }
 
+  _getErrors(value: any): any[] {
+    let validation = this.props.validators || [];
+    return validation
+      .map(validate => validate(value))
+      .filter(error => error);
+  }
+
   render(): React.ReactNode {
     const { name, renderComponent, validators, children, ...rest } = this.props;
     const { form, fields } = this.context;
@@ -90,12 +105,13 @@ class Field extends React.PureComponent<FieldProps> {
           ?
           FieldWapper(renderComponent, {
             onChange: this.onChange,
-            meta: fields[name],
+            meta: fields[name] || {},
             input: {
               ...rest,
               name,
               value: form[name] || '',
-              onChange: this.handleNativeField
+              onChange: this.handleNativeChange,
+              onBlur: this.handleNativeBlur
             }
           })
           :
@@ -103,7 +119,7 @@ class Field extends React.PureComponent<FieldProps> {
             {...rest}
             name={name}
             value={form[name] || ''}
-            onChange={this.handleNativeField}
+            onChange={this.handleNativeChange}
           />
       } </>
     );

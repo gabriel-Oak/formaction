@@ -9,19 +9,20 @@ import { FormContext } from '../../shared/context';
 const Form: React.FC = (props: FormProps) => {
   const {
     form,
-    setForm,
+    updateForm,
     useEffect,
     fields,
     setFields,
     children,
     onSubmit,
     onChange,
+    values,
     ...rest
   } = FormHooks(props);
 
 
   useEffect(() => {
-    onChange && onChange(form);
+    !values && onChange && onChange(form);
   }, [form]);
 
   useEffect(() => {
@@ -49,15 +50,14 @@ const Form: React.FC = (props: FormProps) => {
     onSubmit(form);
   }
 
-
   return (
     <form
       {...rest}
       onSubmit={handleSubmit}
     >
       <FormContext.Provider value={{
-        form,
-        setForm,
+        form: values || form,
+        updateForm,
         fields,
         setFields
       }}>
