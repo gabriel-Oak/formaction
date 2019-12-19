@@ -13,7 +13,7 @@ export interface InputEvent {
 
 export type FieldProps = {
   name: string;
-  renderComponent: React.FC | any;
+  renderComponent?: React.FC | any;
   validators?: Array<(value: any) => string | undefined>;
 }
 

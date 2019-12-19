@@ -11,7 +11,7 @@ export type FormProps = {
 
 const FormHooks = (props: FormProps) => {
   const { initialValues, onChange, values, ...rest } = props;
-  const [form, setForm] = useState(initialValues || values || {});
+  const [form, setForm] = useState(initialValues || {});
   const [fields, setFields] = useState({});
 
   const updateForm = (data: any) => {

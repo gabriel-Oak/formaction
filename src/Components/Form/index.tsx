@@ -6,7 +6,7 @@ import FormHooks, { FormProps } from './hooks';
 import { FormContext } from '../../shared/context';
 
 
-const Form: React.FC = (props: FormProps) => {
+const Form: React.FC<FormProps> = (props: FormProps) => {
   const {
     form,
     updateForm,

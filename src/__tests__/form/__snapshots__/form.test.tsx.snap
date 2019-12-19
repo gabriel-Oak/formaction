@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form should match snapshot 1`] = `
+<form
+  onSubmit={[Function]}
+>
+   
+  <input
+    name="testField"
+    onChange={[Function]}
+    value=""
+  />
+   
+</form>
+`;
