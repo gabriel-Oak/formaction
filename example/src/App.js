@@ -15,7 +15,7 @@ const render = props => {
         {touched && errors[0]}
       </div>
     </div>
-  )
+  );
 }
 
 const render2 = props => {

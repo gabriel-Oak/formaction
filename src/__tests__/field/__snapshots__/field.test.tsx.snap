@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field should match snapshot 1`] = `
+Array [
+  " ",
+  <div>
+    <input
+      name="happyField"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value=""
+    />
+    <div />
+  </div>,
+  " ",
+]
+`;
