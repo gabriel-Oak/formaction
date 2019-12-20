@@ -102,7 +102,7 @@ class Example extends React.Component {
         />
 
         <Field
-          name='name'
+          name='email'
           type='email'
           validators={[isEmail]}
         />
@@ -174,8 +174,85 @@ class Example extends React.Component {
 }
 ```
 
+## Validators:
+
+Validators are just pure functions, they receive input value, and do something, and then return a
+string containing the error, or just undefined. You can build your own validators.
+
+```tsx
+export const isEmail = (value: string) => (
+  !value || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'Esse campo deve ser do tipo e-mail'
+    : undefined
+)
+
+export const isNumber = (value: any) => (
+  !value || !isNaN(+value)
+    ? undefined
+    : 'Esse campo deve ser do tipo número'
+);
+
+export const isRequired = (value?: any) => (
+  value || typeof value === 'number'
+    ? undefined
+    : 'Esse campo é obrigatorio'
+);
+
+
+```
+
 ## And yes, it works with [MATERIAL-UI](https://material-ui.com/)
 
+```tsx
+import React from 'react';
+import { Form, Field } from 'formaction';
+import { TextField } from '@material-ui/core';
+
+
+const renderTextField = (props: Props) => {
+  const {
+    input,
+    meta: { touched, error },
+    ...rest
+  } = props;
+
+  return (
+    <TextField
+      {...input}
+      {...rest}
+      error={touched && error[0]}
+      helperText={touched && error[0]}
+      className="Field"
+    />
+  );
+}
+
+class Example extends React.Component {
+
+  handleSubmit(values) {
+    console.log(values);
+  }
+
+  render () {
+    return (
+      <Form
+        onSubmit={values => this.handleSubmit(values)}
+      >
+        <Field
+          name='user'
+          label="Usuário"
+          variant="outlined"
+          className='poweeeeeeer'
+          renderComponent={renderTextField}
+        />
+
+        <button type='submit'>Click me</button>
+      </Form>
+    );
+  }
+}
+
+```
 
 ## License
 
