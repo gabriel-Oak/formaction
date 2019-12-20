@@ -25,7 +25,10 @@ describe('Form', () => {
         onSubmit={onSubmit}
         onChange={onChange}
       >
-        <Field name='testField' />
+        <Field
+          name='testField'
+          label='Testing is fun'
+        />
       </Form>
     );
   });

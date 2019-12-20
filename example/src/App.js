@@ -58,7 +58,7 @@ export default class App extends Component {
       >
         <Field name='Forms with fun' />
         <div>
-          <Field name='fun' />
+          <Field name='fun' label='funny'/>
           <div>
             <Field name={456} renderComponent={render} validators={[isEmail]} />
             <Field name={457} renderComponent={render2} />

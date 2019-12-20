@@ -13,6 +13,7 @@ export interface InputEvent {
 
 export type FieldProps = {
   name: string;
+  label?: string;
   renderComponent?: React.FC | any;
   validators?: Array<(value: any) => string | undefined>;
 }
@@ -96,7 +97,7 @@ class Field extends React.PureComponent<FieldProps> {
   }
 
   render(): React.ReactNode {
-    const { name, renderComponent, validators, children, ...rest } = this.props;
+    const { name, label, renderComponent, validators, children, ...rest } = this.props;
     const { form, fields } = this.context;
 
     return (
@@ -115,12 +116,20 @@ class Field extends React.PureComponent<FieldProps> {
             }
           })
           :
-          <input
-            {...rest}
-            name={name}
-            value={form[name] || ''}
-            onChange={this.handleNativeChange}
-          />
+          <>
+            {
+              label &&
+              <label htmlFor={name}>
+                {label}
+              </label>
+            }
+            <input
+              {...rest}
+              name={name}
+              value={form[name] || ''}
+              onChange={this.handleNativeChange}
+            />
+          </>
       } </>
     );
   }
