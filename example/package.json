@@ -5,10 +5,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "formaction": "link:..",
+    "node-sass": "^4.13.0",
     "prop-types": "^15.6.2",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4",
-    "formaction": "link:.."
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
