@@ -54,7 +54,8 @@ class Example extends React.Component {
   }
 }
 ```
-## Can i controll my form?
+
+## Can I controll my form?
 
 Yes, you can pass state and a onChange handler to form, and controll it by yourself.
 Knows what it means? Exactually, if we need it, we can store the form state in redux.
@@ -87,9 +88,10 @@ class Example extends React.Component {
   render () {
     return (
       <Form
-        initialValues={{ 'Forms with fun': 'hola' }}
+        initialValues={{ 'name': 'Gabriel Oak' }}
         onSubmit={values => this.handleSubmit(values)}
-        onSubmit={values => this.handleChange(values)}
+        onChange={values => this.handleChange(values)}
+        values={this.state.form}
       >
         <Field
           name='name'
@@ -108,6 +110,69 @@ class Example extends React.Component {
   }
 }
 ```
+
+## Creating a personalised component
+
+Fild component may have a renderComponent property, it takes a component, that component
+will be rendered rather than native html input. Field will pass by props all the native input
+props, like value and onChange, and a meta object. Meta contains info about validators errors and
+if field has been touched.
+
+```tsx
+import * as React from 'react'
+
+import { Form, Field, isRequired } from 'formaction';
+
+const renderSelect = props => {
+  const { input, meta: { touched, errors } } = props;
+
+  return (
+    <div>
+      <select
+        {...input}
+      >
+        <option value='happiness'>Be happy</option>
+        <option value='cool'>Be coll</option>
+      </select>
+      <div>
+        {touched && errors[0]}
+      </div>
+    </div>
+  );
+}
+
+class Example extends React.Component {
+
+  handleSubmit(values) {
+    console.log(values);
+  }
+
+  render () {
+    return (
+      <Form
+        onSubmit={values => this.handleSubmit(values)}
+      >
+        <Field
+          name='someCoolLabel'
+          renderComponent={renderSelect}
+          validators={[isRequired]}
+        />
+
+        <Field
+          name='name'
+          type='email'
+          validators={[isEmail]}
+        />
+
+        <button type='submit'>Click me</button>
+      </Form>
+    );
+  }
+}
+```
+
+## And yes, it works with MATERIAL-UI(https://material-ui.com/)
+
 
 ## License
 
