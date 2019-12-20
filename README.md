@@ -22,7 +22,7 @@ Basically the form take a submit handler, then call the handler with form state,
 if all validations pass.
 
 ```tsx
-import * as React from 'react'
+import React from 'react'
 
 import { Form, Field, isEmail } from 'formaction';
 
@@ -62,7 +62,7 @@ Knows what it means? Exactually, if we need it, we can store the form state in r
 It's still running validations before successfully submitting the form.
 
 ```tsx
-import * as React from 'react'
+import React from 'react'
 
 import { Form, Field, isEmail } from 'formaction';
 
@@ -119,7 +119,7 @@ props, like value and onChange, and a meta object. Meta contains info about vali
 if field has been touched.
 
 ```tsx
-import * as React from 'react'
+import React from 'react'
 
 import { Form, Field, isRequired } from 'formaction';
 
