@@ -171,7 +171,7 @@ class Example extends React.Component {
 }
 ```
 
-## And yes, it works with MATERIAL-UI(https://material-ui.com/)
+## And yes, it works with [MATERIAL-UI](https://material-ui.com/)
 
 
 ## License
