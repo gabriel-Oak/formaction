@@ -5,6 +5,11 @@ exports[`Form should match snapshot 1`] = `
   onSubmit={[Function]}
 >
    
+  <label
+    htmlFor="testField"
+  >
+    Testing is fun
+  </label>
   <input
     name="testField"
     onChange={[Function]}

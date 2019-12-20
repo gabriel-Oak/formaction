@@ -2,6 +2,8 @@
 
 > A library for react forms management
 
+> 100% code coverage with Jest
+
 [![NPM](https://img.shields.io/npm/v/formaction.svg)](https://www.npmjs.com/package/formaction)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
