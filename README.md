@@ -45,8 +45,9 @@ class Example extends React.Component {
         />
 
         <Field
-          name='name'
+          name='labeledField'
           type='email'
+          label='Email'
           validators={[isEmail]}
         />
 
