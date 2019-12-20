@@ -4,8 +4,8 @@ export type FormProps = {
   children: ReactNode;
   initialValues?: any;
   values?: any;
-  onSubmit: (values: any) => {};
-  onChange?: (values: any) => {};
+  onSubmit: (values: any) => void;
+  onChange?: (values: any) => void;
 }
 
 
