@@ -3,7 +3,7 @@ import { isEmail, isNumber, isRequired } from "../../shared/utils/validators";
 describe('Validators', () => {
   it('should return error for email', () => {
     expect(isEmail('test@jest'))
-      .toBe('Esse campo deve ser do tipo e-mail');
+      .toBe('This field must be of type email');
   });
 
   it('should pass the email', () => {
@@ -13,7 +13,7 @@ describe('Validators', () => {
 
   it('should return error for number', () => {
     expect(isNumber('45a'))
-      .toBe('Esse campo deve ser do tipo número');
+      .toBe('This field must be of type number');
   });
 
   it('should pass the number', () => {
@@ -23,7 +23,7 @@ describe('Validators', () => {
 
   it('should return error for required', () => {
     expect(isRequired(null))
-      .toBe('Esse campo é obrigatorio');
+      .toBe('This field is mandatory');
   });
 
   it('should pass the required', () => {
