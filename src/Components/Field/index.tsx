@@ -25,7 +25,7 @@ class Field extends React.PureComponent<FieldProps> {
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
     validators: PropTypes.array,
-    renderComponent: PropTypes.any
+    renderComponent: PropTypes.element
   };
 
   constructor(props: FieldProps) {

@@ -1,7 +1,8 @@
 /**
  * @component Form
  */
-import * as React from 'react'
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import FormHooks, { FormProps } from './hooks';
 import { FormContext } from '../../shared/context';
 
@@ -68,5 +69,12 @@ const Form: React.FC<FormProps> = (props: FormProps) => {
     </form>
   );
 }
+
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  initialValues: PropTypes.object,
+  values: PropTypes.object
+};
 
 export default Form;
