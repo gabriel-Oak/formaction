@@ -1,7 +1,7 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { FormContext } from '../../shared/context';
 import FieldWapper from './FieldWrapper';
-
 export interface InputEvent {
   target: {
     value: string;
@@ -21,6 +21,12 @@ export type FieldProps = {
 class Field extends React.PureComponent<FieldProps> {
 
   static contextType = FormContext;
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    validators: PropTypes.array,
+    renderComponent: PropTypes.any
+  };
 
   constructor(props: FieldProps) {
     super(props);
