@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "formaction": "link:..",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.6.2",
     "react-dom": "^16.4.1",
     "react-router-dom": "^5.1.2",
